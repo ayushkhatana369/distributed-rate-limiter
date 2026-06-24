@@ -1,5 +1,11 @@
 {
   "name": "Ayush",
+  "user:1": "Ayush",
+  "user:2": "John",
+  "user:3": "David",
+  "user": "Ayush",
+  "city": "Delhi",
+  "country": "India",
   "role": "Developer",
-  "user:3": "David"
+  "Ayush": "[object Object]"
 }

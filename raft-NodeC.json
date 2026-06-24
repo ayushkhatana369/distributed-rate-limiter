@@ -1,0 +1,14 @@
+{
+    "term": 1,
+    "votedFor": null,
+    "log": [
+        {
+            "term": 1,
+            "command": "SET city Delhi"
+        },
+        {
+            "term": 1,
+            "command": "SET name Ayush"
+        }
+    ]
+}

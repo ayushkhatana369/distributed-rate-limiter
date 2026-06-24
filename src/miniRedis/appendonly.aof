@@ -34,3 +34,78 @@ DEL Ayush
 SET user:1 Ayush
 SET user:2 John
 SET user:3 David
+SET user:1 Ayush
+SET user:2 John
+SET user:3 David
+SET name Ayush
+SET user:3 David
+SET role Developer
+SET user:1 Ayush
+SET user:2 John
+SET name Ayush
+SET user:3 David
+SET role Developer
+SET user:1 Ayush
+SET user:2 John
+SET name Ayush
+SET user:3 David
+SET role Developer
+SET user:1 Ayush
+SET user:2 John
+SET name Ayush
+SET user:3 David
+SET role Developer
+SET user:1 Ayush
+SET user:2 John
+SET Ayush [object Object]
+SET Ayush [object Object]
+SET Ayush [object Object]
+SET Ayush [object Object]
+SET Ayush [object Object]
+SET Ayush [object Object]
+SET Ayush [object Object]
+SET Ayush [object Object]
+SET name Ayush
+SET name Ayush
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET user WrongData
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET user WrongData
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET user WrongData
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET user WrongData
+SET user Ayush
+SET city Delhi
+SET city Delhi
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET city Delhi
+SET city Delhi
+SET country India
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET user Ayush
+SET city Delhi
+SET city Delhi
+SET city Delhi
+SET user Ayush
+SET city Delhi
+SET user Ayush
+SET city Mumbai
+SET city Delhi
