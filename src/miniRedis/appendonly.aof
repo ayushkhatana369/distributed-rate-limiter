@@ -1,0 +1,36 @@
+SET name Ayush
+SET role Developer
+DEL role
+SET otp 1234
+DEL otp
+SET session abc123
+DEL session
+SET name Ayush
+SET role Developer
+SET name Ayush
+SET name Ayush
+SET name Ayush
+SET role Developer
+SET role Developer
+SET role Developer
+SET name Ayush
+SET name Ayush
+SET name Ayush
+SET name Ayush
+SET name Ayush
+SET name Ayush
+SET name Ayush
+SET name Ayush
+SET name Ayush
+SET Ayush 1
+SET Ayush 2
+SET Ayush 3
+SET Ayush 4
+SET Ayush 5
+SET Ayush 6
+SET Ayush 7
+SET Ayush 8
+DEL Ayush
+SET user:1 Ayush
+SET user:2 John
+SET user:3 David
