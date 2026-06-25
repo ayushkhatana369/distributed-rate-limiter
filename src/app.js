@@ -9,6 +9,7 @@ const atomicRoutes =require("./routes/atomic.routes");
 const transactionRoutes =require("./routes/transaction.routes");
 const luaRoutes =require("./routes/lua.routes");
 const createLuaFixedWindowLimiter =require("./middleware/luaFixedWindow");
+const dashboardRoutes = require("./dashboard/dashboardRoutes");
 
 const luaLimiter =
 createLuaFixedWindowLimiter(
@@ -63,4 +64,5 @@ app.use("/api",
 );
 app.use("/api",
     luaRoutes);
+app.use("/dashboard",dashboardRoutes);
 module.exports = app;

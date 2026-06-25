@@ -12,40 +12,67 @@ class RaftCluster {
             new RaftNode("NodeB"),
             new RaftNode("NodeC")
         ];
+        for (const node of this.nodes){
+            node.setCluster(this);
+        }
     }
 
     requestVote(candidate) {
 
-        let votes = 1;
+    let votes = 1;
 
-        for (
-            const node
-            of this.nodes
-        ) {
+    for (const node of this.nodes) {
 
-            if (
-                node.id === candidate.id
-            ) {
-                continue;
-            }
+        if (node.id === candidate.id) {
 
-            if (
-                node.votedFor === null
-            ) {
+            continue;
 
-                node.votedFor =
-                    candidate.id;
-
-                votes++;
-
-                console.log(
-                    `${node.id} voted for ${candidate.id}`
-                );
-            }
         }
 
-        return votes;
+        if (node.state === "Dead") {
+
+            continue;
+
+        }
+
+        // Candidate has a newer term
+        if (candidate.term > node.term) {
+
+            node.term = candidate.term;
+
+            node.votedFor = null;
+
+            node.becomeFollower(candidate.term);
+
+        }
+
+        if (
+
+            node.votedFor === null &&
+
+            node.term === candidate.term
+
+        ) {
+
+            node.votedFor = candidate.id;
+
+            node.saveState();
+
+            votes++;
+
+            console.log(
+
+                `${node.id} voted for ${candidate.id}`
+
+            );
+
+        }
+
     }
+
+    return votes;
+
+}
 
     startElection(nodeId) {
 
@@ -102,10 +129,50 @@ failNode(nodeId) {
             n => n.id === nodeId
         );
 
-    if (node) {
-
-        node.fail();
+    if (!node) {
+        return;
     }
+
+    const wasLeader =
+        node.state === "Leader";
+
+    node.fail();
+
+    if (wasLeader) {
+
+        const candidate =
+            this.nodes.find(
+                n =>
+                    n.state !== "Dead"
+            );
+
+        if (candidate) {
+
+            this.startElectionAfterFailure(
+                candidate.id
+            );
+        }
+    }
+}
+recoverNode(nodeId) {
+
+    const node = this.nodes.find(
+        n => n.id === nodeId
+    );
+
+    if (!node) {
+        return;
+    }
+
+    node.state = "Follower";
+    node.connected = true;
+    node.isAlive = true;
+
+    node.startElectionTimer();
+
+    console.log(
+        `${node.id} recovered`
+    );
 }
 startElectionAfterFailure(
     candidateId
@@ -128,6 +195,13 @@ startElectionAfterFailure(
     candidate.becomeCandidate();
 
     let votes = 1;
+    console.log(
+    this.nodes.map(n => ({
+        id: n.id,
+        state: n.state,
+        term: n.term
+    }))
+);
 
     for (
         const node
@@ -172,7 +246,7 @@ const majority =
     votes >= majority
 ) {
 
-    candidate.becomeLeader();
+    candidate.becomeLeader(this);
 }
 else {
 

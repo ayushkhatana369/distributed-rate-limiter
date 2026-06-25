@@ -12,8 +12,10 @@ class RaftNode {
 
         this.state = "Follower";
         this.connected = true;
+        this.isAlive = true;
 
         this.term = 0;
+        this.cluster = null;
 
         this.votedFor = null;
         this.log = new RaftLog ;
@@ -57,25 +59,28 @@ if (state) {
 
             if (
                 this.state ===
-                "Follower"
+                "Follower" && this.cluster
             ) {
 
                 console.log(
                     `${this.id} timeout`
                 );
 
-                this.becomeCandidate();
+                this.cluster.startElection(this.id)
             }
         }
     );
+   
     }
 
     becomeCandidate() {
+        this.stopHeartbeat();
+
 
         this.state = "Candidate";
 
         this.term++;
-        this.saveState();
+        
 
         this.votedFor = this.id;
         this.saveState();
@@ -106,6 +111,8 @@ if (state) {
 }
 becomeFollower(term) {
 
+    this.stopHeartbeat();
+
     this.state = "Follower";
 
     this.term = term;
@@ -118,6 +125,9 @@ becomeFollower(term) {
         `${this.id} became Follower`
     );
 }
+setCluster(cluster){
+    this.cluster = cluster;
+}
 
     getInfo() {
 
@@ -127,20 +137,32 @@ becomeFollower(term) {
             term: this.term,
             votedFor: this.votedFor
         };
+   
     }
-    receiveHeartbeat(term, leaderId) {
-        if (!this.connected) {
 
-    console.log(
-        `${this.id} is partitioned`
-    );
+receiveHeartbeat(term, leaderId) {
 
-    return false;
-}
+    if (this.state === "Dead") {
 
-    if (term >= this.term) {
+        return false;
+    }
 
-        this.becomeFollower(term)
+    if (!this.connected) {
+
+        console.log(
+            `${this.id} is partitioned`
+        );
+
+        return false;
+    }
+
+    if (term > this.term) {
+
+        this.becomeFollower(term);
+    }
+ else if (this.state !=="Follower"){
+    this.becomeFollower(term)
+ }
         this.resetElectionTimer();
 
         console.log(
@@ -148,11 +170,14 @@ becomeFollower(term) {
         );
 
         return true;
+    
     }
-
-    return false;
-}
+ 
 receiveAppendEntries(rpc) {
+
+    if(this.state==="Dead"){
+        return false;
+    }
 
     console.log(
         `\n${this.id} received AppendEntries`
@@ -224,7 +249,7 @@ console.log(
 
 return true;
 
-    return true;
+    
 }
 
 sendHeartbeat(cluster) {
@@ -285,11 +310,32 @@ fail() {
 
     this.stopHeartbeat();
 
+    this.stopElectionTimer();   // add this
+
     this.state = "Dead";
 
+    this.connected = false;     // add this
+
+    console.log(`${this.id} failed`);
+}
+recover() {
+
+    this.stopHeartbeat();
+
+    this.state = "Follower";
+
+    this.connected = true;
+
+    this.isAlive = true;
+
+    this.votedFor = null;
+
+    this.startElectionTimer();
+
     console.log(
-        `${this.id} failed`
+        `${this.id} recovered`
     );
+
 }
 appendEntry(
     command

@@ -147,9 +147,25 @@ class Store {
 
         return result;
 
+   
     }
 
+
+    getAll() {
+
+    const result = {};
+
+    for (const key of this.keys()) {
+
+        result[key] = this.get(key);
+
+    }
+
+    return result;
+
 }
+}
+
 
 module.exports =
     Store;

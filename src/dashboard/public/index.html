@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        Distributed Rate Limiter Control Center
+
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="./styles.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= Sidebar ================= -->
+
+    <aside class="sidebar">
+
+        <h2>
+
+            Control Center
+
+        </h2>
+
+        <ul>
+
+            <li id="overviewBtn">
+                🏠 Overview
+            </li>
+
+            <li id="clusterBtn">
+                🖥 Cluster
+            </li>
+
+            <li id="algorithmBtn">
+                ⚙ Algorithms
+            </li>
+
+            <li id="hashRingBtn">
+                🌐 Hash Ring
+            </li>
+
+            <li id="redisBtn">
+                💾 MiniRedis
+            </li>
+
+            <li id="raftBtn">
+                👑 Raft
+            </li>
+
+            <li id="metricsBtn">
+                📊 Metrics
+            </li>
+
+            <li id="logsBtn">
+                📜 Logs
+            </li>
+
+            <li id="loadBtn">
+                🚀 Load Test
+            </li>
+
+            <li id="settingsBtn">
+                🔧 Settings
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- ================= Dashboard ================= -->
+
+    <main class="dashboard">
+
+        <!-- Header -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+
+                    Distributed Rate Limiter
+
+                </h1>
+
+                <p>
+
+                    Powered by MiniRedis (Built From Scratch) • Raft • Consistent Hashing • Virtual Nodes
+
+                </p>
+
+            </div>
+
+            <div class="headerStatus">
+
+                <div id="leaderStatus">
+
+                    👑 Leader : --
+
+                </div>
+
+                <div id="storageStatus">
+
+                    💾 Storage : MiniRedis
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- Summary Cards -->
+
+        <section class="cards">
+
+            <div class="card">
+
+                <h3>
+
+                    Cluster
+
+                </h3>
+
+                <div id="clusterCard">
+
+                    Loading...
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h3>
+
+                    Metrics
+
+                </h3>
+
+                <div id="metricsCard">
+
+                    Loading...
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h3>
+
+                    Algorithm
+
+                </h3>
+
+                <div id="algorithmCard">
+
+                    Loading...
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h3>
+
+                    Storage
+
+                </h3>
+
+                <div id="storageCard">
+
+                    MiniRedis
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Main Visualization -->
+
+        <section
+            id="visualization"
+            class="panel">
+
+            <h2>
+
+                Cluster Visualization
+
+            </h2>
+
+            <div id="clusterVisualization">
+
+            </div>
+
+        </section>
+
+        <!-- Bottom Panels -->
+
+        <section class="bottomPanels">
+
+            <div class="panel">
+
+                <h2>
+
+                    Consistent Hash Ring
+
+                </h2>
+
+                <div id="hashRingPanel">
+
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <h2>
+
+                    MiniRedis Explorer
+
+                </h2>
+
+                <div id="redisPanel">
+
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <h2>
+
+                    Raft Log
+
+                </h2>
+
+                <div id="raftPanel">
+
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <h2>
+
+                    Live Metrics
+
+                </h2>
+
+                <div id="chartPanel">
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Control Panel -->
+
+        <section class="panel">
+
+            <h2>
+
+                Cluster Controls
+
+            </h2>
+<div class="controls">
+
+    <button
+        onclick="crashNode('NodeA')">
+
+        💥 Crash NodeA
+
+    </button>
+
+    <button
+        onclick="crashNode('NodeB')">
+
+        💥 Crash NodeB
+
+    </button>
+
+    <button
+        onclick="crashNode('NodeC')">
+
+        💥 Crash NodeC
+
+    </button>
+
+    <button id="recoverNode">
+
+        ♻ Recover Node
+
+    </button>
+
+    <button id="leaderElection">
+
+        👑 Force Election
+
+    </button>
+
+    <button id="rebalance">
+
+        🌐 Rebalance
+
+    </button>
+
+</div>
+
+        </section>
+
+    </main>
+
+</div>
+<script src = "js/redisExplorer.js"></script>
+<script src="app.js"></script>
+
+</body>
+
+</html>

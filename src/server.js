@@ -2,6 +2,10 @@ require("dotenv").config();
 
 const app = require("./app");
 const redisClient = require("./config/redis");
+const {
+    initialize
+}=require ("./distributed/bootstrap")
+
 
 const PORT = process.env.PORT || 5000;
 
@@ -10,6 +14,7 @@ async function startServer() {
         
        // await redisClient.connect();
         console.log("Redis Connected");
+        initialize();
 
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
