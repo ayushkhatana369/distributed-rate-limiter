@@ -10,3 +10,5 @@ coverage/
 .vscode/
 
 .DS_Store
+raft-*.json
+snapsgot-*.json
