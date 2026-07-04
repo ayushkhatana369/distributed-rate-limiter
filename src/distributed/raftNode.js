@@ -261,21 +261,52 @@ sendHeartbeat(cluster) {
     console.log(
         `\n${this.id} sending heartbeats`
     );
-for (const node of cluster.nodes) {
 
-    if (
-        node.id !== this.id &&
-        node.connected
-    ) {
+    let alive = 1;
 
-        node.receiveHeartbeat(
-            this.term,
-            this.id
+    for (const node of cluster.nodes) {
+
+        if (
+            node.id === this.id
+        ) {
+            continue;
+        }
+
+        if (!node.connected) {
+            continue;
+        }
+
+        const ok =
+            node.receiveHeartbeat(
+                this.term,
+                this.id
+            );
+
+        if (ok) {
+            alive++;
+        }
+    }
+
+    const majority =
+        Math.floor(cluster.nodes.length / 2) + 1;
+
+    if (alive < majority) {
+
+        console.log(
+            `${this.id} lost majority`
         );
+
+        this.becomeFollower(
+            this.term
+        );
+
+        this.startElectionTimer();
+
+        return;
     }
 }
-}
 startHeartbeat(cluster) {
+    this.stopHeartbeat()
 
     this.heartbeatInterval =
         setInterval(() => {

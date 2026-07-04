@@ -285,6 +285,7 @@ replicateLog(
     leader.appendEntry(
         command
     );
+    let succcessfulReplications =1;
 
     for (const node of this.nodes) {
 
@@ -338,7 +339,7 @@ const success =
     );
 
 if (success) {
-
+ succcessfulReplications++;
     console.log(
         `${node.id} accepted RPC`
     );
